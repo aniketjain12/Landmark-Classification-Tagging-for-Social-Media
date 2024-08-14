@@ -67,8 +67,8 @@ Both models were trained and evaluated using Jupyter notebooks:
 
 ## Results
 
-- **CNN from Scratch:** Achieved an accuracy of X% on the test set, demonstrating the ability to learn from scratch without relying on pre-trained knowledge.
-- **Transfer Learning Model:** Achieved a higher accuracy of Y% on the test set, leveraging the power of pre-trained models to improve classification performance.
+- **CNN from Scratch:** Achieved an accuracy of 58% on the test set, demonstrating the ability to learn from scratch without relying on pre-trained knowledge.
+- **Transfer Learning Model:** Achieved a higher accuracy of 80% on the test set, leveraging the power of pre-trained models to improve classification performance.
 
 ## Deployment
 
