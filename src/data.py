@@ -33,7 +33,6 @@ def get_data_loaders(
     mean, std = compute_mean_and_std()
     print(f"Dataset mean: {mean}, std: {std}")
 
-    # YOUR CODE HERE:
     # create 3 sets of data transforms: one for the training dataset,
     # containing data augmentation, one for the validation dataset
     # (without data augmentation) and one for the test set (again
@@ -56,7 +55,7 @@ def get_data_loaders(
                 transforms.ToTensor(),
                 transforms.Normalize(mean, std),
             ]
-            # YOUR CODE HERE
+           
         ),
         "valid": transforms.Compose(
             [
@@ -66,7 +65,7 @@ def get_data_loaders(
                 transforms.ToTensor(),
                 transforms.Normalize(mean, std),
             ]
-            # YOUR CODE HERE
+            
         ),
         "test": transforms.Compose(
             [
@@ -76,21 +75,21 @@ def get_data_loaders(
                 transforms.ToTensor(),
                 transforms.Normalize(mean, std),
            ]
-            # YOUR CODE HERE
+           
         ),
     }
 
     # Create train and validation datasets
     train_data = datasets.ImageFolder(
         base_path / "train", transform = data_transforms['train']
-        # YOUR CODE HERE: add the appropriate transform that you defined in
+        #  add the appropriate transform that you defined in
         # the data_transforms dictionary
     )
     # The validation dataset is a split from the train_one_epoch dataset, so we read
     # from the same folder, but we apply the transforms for validation
     valid_data = datasets.ImageFolder(
         base_path / "train", transform = data_transforms['valid']
-        # YOUR CODE HERE: add the appropriate transform that you defined in
+        #  add the appropriate transform that you defined in
         # the data_transforms dictionary
     )
 
@@ -138,7 +137,7 @@ def get_data_loaders(
         test_sampler = None
 
     data_loaders["test"] = torch.utils.data.DataLoader(
-        # YOUR CODE HERE (remember to add shuffle=False as well)
+        # (remember to add shuffle=False as well)
         valid_data,
         batch_size = batch_size,
         sampler = test_sampler,
@@ -158,13 +157,12 @@ def visualize_one_batch(data_loaders, max_n: int = 5):
     :return: None
     """
 
-    # YOUR CODE HERE:
     # obtain one batch of training images
     # First obtain an iterator from the train dataloader
     dataiter  = iter(data_loaders["train"]) # YOUR CODE HERE
     # Then call the .next() method on the iterator you just
     # obtained
-    images, labels  = next(dataiter) # YOUR CODE HERE
+    images, labels  = next(dataiter) 
 
     # Undo the normalization (for visualization purposes)
     mean, std = compute_mean_and_std()
@@ -177,7 +175,6 @@ def visualize_one_batch(data_loaders, max_n: int = 5):
 
     images = invTrans(images)
 
-    # YOUR CODE HERE:
     # Get class names from the train data loader
     class_names  = data_loaders["train"].dataset.classes # YOUR CODE HERE
 
