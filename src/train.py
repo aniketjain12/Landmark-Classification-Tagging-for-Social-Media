@@ -15,10 +15,8 @@ def train_one_epoch(train_dataloader, model, optimizer, loss):
 
     if torch.cuda.is_available():
         model.cuda()
-        # YOUR CODE HERE: transfer the model to the GPU
-        # HINT: use .cuda()
 
-    # YOUR CODE HERE: set the model to training mode
+    # set the model to training mode
     model.train()
     
     train_loss = 0.0
@@ -35,17 +33,14 @@ def train_one_epoch(train_dataloader, model, optimizer, loss):
             data, target = data.cuda(), target.cuda()
 
         # 1. clear the gradients of all optimized variables
-        # YOUR CODE HERE:
         optimizer.zero_grad()
         # 2. forward pass: compute predicted outputs by passing inputs to the model
-        output  = model.forward(data) # YOUR CODE HERE
+        output  = model.forward(data) 
         # 3. calculate the loss
-        loss_value  = loss(output, target) # YOUR CODE HERE
+        loss_value  = loss(output, target) 
         # 4. backward pass: compute gradient of the loss with respect to model parameters
-        # YOUR CODE HERE:
         loss_value.backward()
         # 5. perform a single optimization step (parameter update)
-        # YOUR CODE HERE:
         optimizer.step()
 
         # update average training loss
@@ -64,7 +59,6 @@ def valid_one_epoch(valid_dataloader, model, loss):
     with torch.no_grad():
 
         # set the model to evaluation mode
-        # YOUR CODE HERE
         model.eval()
 
         if torch.cuda.is_available():
@@ -110,7 +104,7 @@ def optimize(data_loaders, model, optimizer, loss, n_epochs, save_path, interact
     # plateau
     # HINT: look here: 
     # https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
-    scheduler  = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min') # YOUR CODE HERE
+    scheduler  = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min')
 
     for epoch in range(1, n_epochs + 1):
 
@@ -134,13 +128,11 @@ def optimize(data_loaders, model, optimizer, loss, n_epochs, save_path, interact
             print(f"New minimum validation loss: {valid_loss:.6f}. Saving model ...")
 
             # Save the weights to save_path
-            # YOUR CODE HERE
             torch.save(model.state_dict(), save_path)
 
             valid_loss_min = valid_loss
 
         # Update learning rate, i.e., make a step in the learning rate scheduler
-        # YOUR CODE HERE
         scheduler.step(valid_loss)
 
         # Log the losses and the current learning rate
@@ -163,7 +155,6 @@ def one_epoch_test(test_dataloader, model, loss):
     with torch.no_grad():
 
         # set the model to evaluation mode
-        # YOUR CODE HERE
         model.eval()
 
         if torch.cuda.is_available():
@@ -181,16 +172,16 @@ def one_epoch_test(test_dataloader, model, loss):
                 data, target = data.cuda(), target.cuda()
 
             # 1. forward pass: compute predicted outputs by passing inputs to the model
-            logits  = model.forward(data) # YOUR CODE HERE
+            logits  = model.forward(data) 
             # 2. calculate the loss
-            loss_value  = loss(logits, target).detach() # YOUR CODE HERE
+            loss_value  = loss(logits, target).detach() 
 
             # update average test loss
             test_loss = test_loss + ((1 / (batch_idx + 1)) * (loss_value.data.item() - test_loss))
 
             # convert logits to predicted class
-            # HINT: the predicted class is the index of the max of the logits
-            pred  = logits.data.max(1, keepdim=True)[1]  # YOUR CODE HERE
+            # the predicted class is the index of the max of the logits
+            pred  = logits.data.max(1, keepdim=True)[1] 
 
             # compare predictions to true label
             correct += torch.sum(torch.squeeze(pred.eq(target.data.view_as(pred))).cpu())
