@@ -37,7 +37,6 @@ def get_optimizer(
         # and weight_decay
         opt = torch.optim.SGD(
             model.parameters(), lr = learning_rate, momentum = momentum, weight_decay = weight_decay
-            # YOUR CODE HERE
         )
 
     elif optimizer.lower() == "adam":
